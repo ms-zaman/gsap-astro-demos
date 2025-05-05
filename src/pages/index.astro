@@ -8,9 +8,69 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>GSAP with Astro</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				max-width: 800px;
+				margin: 0 auto;
+				padding: 2rem;
+				line-height: 1.6;
+			}
+			h1 {
+				color: #3498db;
+				text-align: center;
+				margin-bottom: 2rem;
+			}
+			.demo-links {
+				display: flex;
+				flex-direction: column;
+				gap: 1rem;
+				margin-top: 2rem;
+			}
+			.demo-link {
+				display: block;
+				padding: 1rem;
+				background-color: #f5f5f5;
+				border-radius: 8px;
+				text-decoration: none;
+				color: #333;
+				font-weight: bold;
+				transition: all 0.3s ease;
+			}
+			.demo-link:hover {
+				background-color: #3498db;
+				color: white;
+				transform: translateY(-3px);
+				box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+			}
+			.description {
+				margin-top: 0.5rem;
+				font-size: 0.9rem;
+				color: #666;
+			}
+		</style>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<h1>GSAP Animation Demos with Astro</h1>
+
+		<p>Welcome to the GSAP animation demo project! This project showcases how to use the GreenSock Animation Platform (GSAP) with Astro to create engaging animations.</p>
+
+		<div class="demo-links">
+			<a href="/gsap-demo" class="demo-link">
+				Basic GSAP Demo
+				<div class="description">Demonstrates basic GSAP animations, timelines, and interactive elements.</div>
+			</a>
+
+			<a href="/gsap-scroll" class="demo-link">
+				Scroll-Based Animations
+				<div class="description">Shows how to create animations triggered by scrolling using ScrollTrigger.</div>
+			</a>
+
+			<a href="/gsap-advanced" class="demo-link">
+				Advanced GSAP Techniques
+				<div class="description">Showcases advanced animations including text reveals, staggered grids, and horizontal scrolling.</div>
+			</a>
+		</div>
 	</body>
 </html>

@@ -1,0 +1,517 @@
+---
+// GSAP Advanced Demo Page
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSAP Advanced Demo</title>
+  <style>
+    :root {
+      --primary: #3498db;
+      --secondary: #e74c3c;
+      --accent: #f39c12;
+      --dark: #2c3e50;
+      --light: #ecf0f1;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+    
+    .section {
+      min-height: 100vh;
+      padding: 4rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    /* Hero Section */
+    .hero {
+      background-color: var(--dark);
+      color: white;
+      text-align: center;
+    }
+    
+    .hero-title {
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    
+    .hero-title span {
+      display: inline-block;
+    }
+    
+    .hero-subtitle {
+      font-size: clamp(1rem, 3vw, 1.5rem);
+      margin-bottom: 2rem;
+      opacity: 0;
+    }
+    
+    .hero-button {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    
+    /* Text Animation Section */
+    .text-animation {
+      background-color: white;
+    }
+    
+    .text-reveal {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.3;
+      margin-bottom: 2rem;
+      color: var(--dark);
+    }
+    
+    .text-reveal span {
+      display: inline-block;
+      color: var(--primary);
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    
+    .text-paragraph {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      opacity: 0;
+    }
+    
+    /* Gallery Section */
+    .gallery {
+      background-color: var(--dark);
+      color: white;
+    }
+    
+    .gallery-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+    }
+    
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .gallery-item {
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .gallery-item-content {
+      padding: 1.5rem;
+      color: var(--dark);
+    }
+    
+    .gallery-item-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .gallery-item-desc {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+    /* Stagger Section */
+    .stagger {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .stagger-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+    }
+    
+    .stagger-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+    }
+    
+    .stagger-item {
+      aspect-ratio: 1;
+      background-color: white;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--dark);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    
+    /* Horizontal Scroll Section */
+    .horizontal-scroll {
+      overflow: hidden;
+      background-color: var(--light);
+    }
+    
+    .horizontal-container {
+      display: flex;
+      width: 300%; /* Adjust based on number of panels */
+      height: 100vh;
+    }
+    
+    .panel {
+      width: 100vw;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+    
+    .panel:nth-child(1) {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .panel:nth-child(2) {
+      background-color: var(--secondary);
+      color: white;
+    }
+    
+    .panel:nth-child(3) {
+      background-color: var(--accent);
+      color: white;
+    }
+    
+    .panel-content {
+      max-width: 800px;
+      text-align: center;
+    }
+    
+    .panel-title {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .panel-desc {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="section hero">
+    <div class="container">
+      <h1 class="hero-title">
+        <span>Advanced</span>
+        <span>GSAP</span>
+        <span>Animations</span>
+      </h1>
+      <p class="hero-subtitle">Showcasing the power of GSAP with ScrollTrigger</p>
+      <a href="#" class="hero-button">Get Started</a>
+    </div>
+  </section>
+  
+  <!-- Text Animation Section -->
+  <section class="section text-animation">
+    <div class="container">
+      <h2 class="text-reveal">
+        <span>GSAP</span>
+        <span>makes</span>
+        <span>complex</span>
+        <span>animations</span>
+        <span>simple.</span>
+      </h2>
+      <p class="text-paragraph">
+        GreenSock Animation Platform (GSAP) is a robust JavaScript animation library that enables developers to create high-performance animations that work across all major browsers. With its intuitive API and powerful features like ScrollTrigger, GSAP makes it easy to create engaging, interactive web experiences.
+      </p>
+    </div>
+  </section>
+  
+  <!-- Gallery Section -->
+  <section class="section gallery">
+    <div class="container">
+      <h2 class="gallery-title">Animated Gallery</h2>
+      <div class="gallery-grid">
+        <!-- Gallery items -->
+        <div class="gallery-item">
+          <img src="https://source.unsplash.com/random/600x400?nature" alt="Nature">
+          <div class="gallery-item-content">
+            <h3 class="gallery-item-title">Nature</h3>
+            <p class="gallery-item-desc">Beautiful landscapes and natural wonders</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://source.unsplash.com/random/600x400?architecture" alt="Architecture">
+          <div class="gallery-item-content">
+            <h3 class="gallery-item-title">Architecture</h3>
+            <p class="gallery-item-desc">Stunning buildings and structures</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://source.unsplash.com/random/600x400?technology" alt="Technology">
+          <div class="gallery-item-content">
+            <h3 class="gallery-item-title">Technology</h3>
+            <p class="gallery-item-desc">Modern tech and innovations</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://source.unsplash.com/random/600x400?animals" alt="Animals">
+          <div class="gallery-item-content">
+            <h3 class="gallery-item-title">Animals</h3>
+            <p class="gallery-item-desc">Wildlife and animal photography</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Stagger Section -->
+  <section class="section stagger">
+    <div class="container">
+      <h2 class="stagger-title">Staggered Animations</h2>
+      <div class="stagger-grid">
+        <!-- 25 stagger items -->
+        <div class="stagger-item">1</div>
+        <div class="stagger-item">2</div>
+        <div class="stagger-item">3</div>
+        <div class="stagger-item">4</div>
+        <div class="stagger-item">5</div>
+        <div class="stagger-item">6</div>
+        <div class="stagger-item">7</div>
+        <div class="stagger-item">8</div>
+        <div class="stagger-item">9</div>
+        <div class="stagger-item">10</div>
+        <div class="stagger-item">11</div>
+        <div class="stagger-item">12</div>
+        <div class="stagger-item">13</div>
+        <div class="stagger-item">14</div>
+        <div class="stagger-item">15</div>
+        <div class="stagger-item">16</div>
+        <div class="stagger-item">17</div>
+        <div class="stagger-item">18</div>
+        <div class="stagger-item">19</div>
+        <div class="stagger-item">20</div>
+        <div class="stagger-item">21</div>
+        <div class="stagger-item">22</div>
+        <div class="stagger-item">23</div>
+        <div class="stagger-item">24</div>
+        <div class="stagger-item">25</div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Horizontal Scroll Section -->
+  <section class="section horizontal-scroll">
+    <div class="horizontal-container">
+      <div class="panel">
+        <div class="panel-content">
+          <h2 class="panel-title">Horizontal Scrolling</h2>
+          <p class="panel-desc">
+            ScrollTrigger makes it easy to create horizontal scrolling sections that respond to the user's scroll input.
+          </p>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-content">
+          <h2 class="panel-title">Smooth Animations</h2>
+          <p class="panel-desc">
+            GSAP ensures smooth, high-performance animations across all devices and browsers.
+          </p>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-content">
+          <h2 class="panel-title">Creative Freedom</h2>
+          <p class="panel-desc">
+            With GSAP, you have the creative freedom to build any animation you can imagine.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Created with GSAP and Astro | <a href="/">Back to Home</a></p>
+  </footer>
+
+  <script>
+    // Import GSAP and ScrollTrigger
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    
+    // Register the ScrollTrigger plugin
+    gsap.registerPlugin(ScrollTrigger);
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      // Hero section animations
+      const heroTl = gsap.timeline();
+      
+      heroTl.from(".hero-title span", {
+        y: 100,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out"
+      })
+      .to(".hero-subtitle", {
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out"
+      }, "-=0.4")
+      .to(".hero-button", {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: "back.out(1.7)"
+      }, "-=0.6");
+      
+      // Text reveal animation
+      const textTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".text-animation",
+          start: "top 70%",
+          // markers: true,
+        }
+      });
+      
+      textTl.to(".text-reveal span", {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out"
+      })
+      .to(".text-paragraph", {
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out"
+      }, "-=0.4");
+      
+      // Gallery animations
+      gsap.to(".gallery-item", {
+        opacity: 1,
+        scale: 1,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: ".gallery",
+          start: "top 70%",
+          // markers: true,
+        }
+      });
+      
+      // Stagger grid animations
+      gsap.to(".stagger-item", {
+        opacity: 1,
+        scale: 1,
+        duration: 0.5,
+        stagger: {
+          grid: [5, 5],
+          from: "center",
+          amount: 0.8
+        },
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: ".stagger",
+          start: "top 60%",
+          // markers: true,
+        }
+      });
+      
+      // Horizontal scroll
+      ScrollTrigger.create({
+        trigger: ".horizontal-scroll",
+        pin: true,
+        start: "top top",
+        end: "+=3000", // Adjust based on your content
+        // markers: true,
+      });
+      
+      gsap.to(".horizontal-container", {
+        x: "-200vw", // Move to show the last panel
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".horizontal-scroll",
+          start: "top top",
+          end: "+=3000", // Should match the end value above
+          scrub: 1,
+          pin: true,
+          // markers: true,
+          invalidateOnRefresh: true,
+        }
+      });
+      
+      // Refresh ScrollTrigger when the page is fully loaded
+      // This helps with any layout shifts that might occur
+      window.addEventListener('load', () => {
+        ScrollTrigger.refresh();
+      });
+    });
+  </script>
+</body>
+</html>
