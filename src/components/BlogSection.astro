@@ -1,0 +1,198 @@
+---
+// Blog Section Component
+---
+
+<section id="blog" class="section blog-section">
+  <div class="container">
+    <h2 class="section-title">Blogs & Articles</h2>
+    
+    <div class="blog-grid">
+      <div class="blog-card">
+        <div class="blog-image">
+          <img src="https://source.unsplash.com/random/600x400?digital" alt="Digital Marketing" />
+          <div class="blog-category">Marketing</div>
+        </div>
+        <div class="blog-content">
+          <h3 class="blog-title">10 Digital Marketing Trends to Watch in 2023</h3>
+          <p class="blog-excerpt">
+            Discover the latest trends that are shaping the future of digital marketing and how to leverage them.
+          </p>
+          <div class="blog-meta">
+            <span class="blog-date">June 15, 2023</span>
+            <span class="blog-read-time">5 min read</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="blog-card">
+        <div class="blog-image">
+          <img src="https://source.unsplash.com/random/600x400?design" alt="Web Design" />
+          <div class="blog-category">Design</div>
+        </div>
+        <div class="blog-content">
+          <h3 class="blog-title">The Psychology of Colors in Web Design</h3>
+          <p class="blog-excerpt">
+            Learn how color choices impact user behavior and how to use this knowledge to improve your website.
+          </p>
+          <div class="blog-meta">
+            <span class="blog-date">May 28, 2023</span>
+            <span class="blog-read-time">4 min read</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="blog-navigation">
+      <div class="nav-dots">
+        <button class="nav-dot active" aria-label="Page 1"></button>
+        <button class="nav-dot" aria-label="Page 2"></button>
+        <button class="nav-dot" aria-label="Page 3"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .blog-section {
+    background-color: var(--white);
+  }
+  
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .blog-card {
+    background-color: var(--white);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+  }
+  
+  .blog-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .blog-image {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+  }
+  
+  .blog-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .blog-card:hover .blog-image img {
+    transform: scale(1.05);
+  }
+  
+  .blog-category {
+    position: absolute;
+    top: var(--spacing-md);
+    left: var(--spacing-md);
+    padding: 0.25rem 0.75rem;
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  
+  .blog-content {
+    padding: var(--spacing-lg);
+  }
+  
+  .blog-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .blog-excerpt {
+    color: var(--dark-gray);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.6;
+  }
+  
+  .blog-meta {
+    display: flex;
+    justify-content: space-between;
+    color: var(--dark-gray);
+    font-size: 0.875rem;
+  }
+  
+  .blog-navigation {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .nav-dots {
+    display: flex;
+    gap: var(--spacing-sm);
+  }
+  
+  .nav-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--medium-gray);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-dot.active {
+    background-color: var(--primary);
+  }
+  
+  @media (max-width: 768px) {
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    // Blog animations
+    gsap.from(".blog-card", {
+      opacity: 0,
+      y: 50,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".blog-section",
+        start: "top 70%",
+      }
+    });
+    
+    // Navigation dots functionality
+    const navDots = document.querySelectorAll('.blog-navigation .nav-dot');
+    
+    navDots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        // Remove active class from all dots
+        navDots.forEach(d => d.classList.remove('active'));
+        
+        // Add active class to clicked dot
+        dot.classList.add('active');
+        
+        // Here you would implement the actual pagination logic
+        console.log(`Navigating to blog page ${index + 1}`);
+      });
+    });
+  });
+</script>

@@ -1,0 +1,138 @@
+---
+// Stats Section Component
+---
+
+<section class="section stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card" style="background-color: var(--accent-yellow);">
+        <div class="stat-number">60+</div>
+        <div class="stat-label">Satisfied Clients</div>
+      </div>
+      
+      <div class="stat-card" style="background-color: var(--white);">
+        <div class="stat-number">12</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      
+      <div class="stat-card" style="background-color: var(--accent-orange);">
+        <div class="stat-number">28%</div>
+        <div class="stat-label">Growth Rate</div>
+      </div>
+      
+      <div class="stat-card" style="background-color: var(--light-gray);">
+        <div class="stat-number">14+</div>
+        <div class="stat-label">Expert Team</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .stats-section {
+    padding: var(--spacing-2xl) 0;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
+  }
+  
+  .stat-card {
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    color: var(--black);
+  }
+  
+  .stat-label {
+    font-size: 1rem;
+    color: var(--secondary);
+    font-weight: 500;
+  }
+  
+  @media (max-width: 992px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    // Stats animations
+    gsap.from(".stat-card", {
+      opacity: 0,
+      y: 50,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".stats-section",
+        start: "top 80%",
+      }
+    });
+    
+    // Number counter animation
+    const statNumbers = document.querySelectorAll('.stat-number');
+    
+    statNumbers.forEach(statNumber => {
+      const targetNumber = statNumber.textContent;
+      let prefix = '';
+      let suffix = '';
+      
+      // Extract any prefix or suffix (like +, %, etc.)
+      const numberMatch = targetNumber.match(/^([^\d]*)(\d+)([^\d]*)$/);
+      
+      if (numberMatch) {
+        prefix = numberMatch[1];
+        const number = parseInt(numberMatch[2]);
+        suffix = numberMatch[3];
+        
+        // Reset the text to 0
+        statNumber.textContent = prefix + '0' + suffix;
+        
+        // Animate the number
+        ScrollTrigger.create({
+          trigger: statNumber,
+          start: "top 80%",
+          onEnter: () => {
+            gsap.to({
+              value: 0
+            }, {
+              value: number,
+              duration: 2,
+              ease: "power2.out",
+              onUpdate: function() {
+                statNumber.textContent = prefix + Math.round(this.targets()[0].value) + suffix;
+              }
+            });
+          },
+          once: true
+        });
+      }
+    });
+  });
+</script>

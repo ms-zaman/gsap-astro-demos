@@ -1,0 +1,136 @@
+---
+// Services Section Component
+interface Props {
+  id: string;
+  title: string;
+  subtitle?: string;
+  imageUrl: string;
+  imagePosition?: 'left' | 'right';
+  buttonText?: string;
+  buttonLink?: string;
+}
+
+const {
+  id,
+  title,
+  subtitle,
+  imageUrl,
+  imagePosition = 'right',
+  buttonText = 'Learn More',
+  buttonLink = '#'
+} = Astro.props;
+---
+
+<section id={id} class="section services-section">
+  <div class="container">
+    <div class={`services-content ${imagePosition === 'left' ? 'image-left' : ''}`}>
+      <div class="services-text">
+        <h2 class="section-title">{title}</h2>
+        {subtitle && <p class="section-subtitle">{subtitle}</p>}
+        
+        <div class="services-features">
+          <slot />
+        </div>
+        
+        <div class="services-action">
+          <a href={buttonLink} class="btn btn-primary">{buttonText}</a>
+        </div>
+      </div>
+      
+      <div class="services-image">
+        <img src={imageUrl} alt={title} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-section {
+    background-color: var(--white);
+  }
+  
+  .services-content {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3xl);
+  }
+  
+  .services-content.image-left {
+    flex-direction: row-reverse;
+  }
+  
+  .services-text {
+    flex: 1;
+  }
+  
+  .services-features {
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .services-image {
+    flex: 1;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  .services-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  @media (max-width: 992px) {
+    .services-content,
+    .services-content.image-left {
+      flex-direction: column;
+    }
+    
+    .services-text {
+      text-align: center;
+    }
+    
+    .services-action {
+      display: flex;
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    // Services section animations
+    const servicesSections = document.querySelectorAll('.services-section');
+    
+    servicesSections.forEach(section => {
+      const textElements = section.querySelectorAll('.services-text > *');
+      const image = section.querySelector('.services-image');
+      
+      gsap.from(textElements, {
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+        }
+      });
+      
+      gsap.from(image, {
+        opacity: 0,
+        x: section.querySelector('.image-left') ? -50 : 50,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+        }
+      });
+    });
+  });
+</script>

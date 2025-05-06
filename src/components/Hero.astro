@@ -1,0 +1,185 @@
+---
+// Hero Component
+---
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">Flexible Solutions For Modern Business</h1>
+        <p class="hero-subtitle">
+          We help businesses transform and grow with innovative digital strategies and cutting-edge technology solutions.
+        </p>
+        <div class="hero-actions">
+          <a href="#services" class="btn btn-primary">Explore Services</a>
+          <a href="#contact" class="btn btn-secondary">Contact Us</a>
+        </div>
+      </div>
+      
+      <div class="hero-images">
+        <div class="image-grid">
+          <div class="image-item image-1">
+            <img src="https://source.unsplash.com/random/600x400?business" alt="Business professional" />
+          </div>
+          <div class="image-item image-2">
+            <img src="https://source.unsplash.com/random/600x400?meeting" alt="Team meeting" />
+          </div>
+          <div class="image-item image-3">
+            <img src="https://source.unsplash.com/random/600x400?technology" alt="Modern technology" />
+          </div>
+          <div class="image-item image-4">
+            <img src="https://source.unsplash.com/random/600x400?workspace" alt="Creative workspace" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="hero-shape"></div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding: calc(var(--header-height) + var(--spacing-3xl)) 0 var(--spacing-3xl);
+    overflow: hidden;
+  }
+  
+  .hero-content {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3xl);
+  }
+  
+  .hero-text {
+    flex: 1;
+    max-width: 600px;
+  }
+  
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: var(--spacing-lg);
+    color: var(--black);
+  }
+  
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--dark-gray);
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .hero-actions {
+    display: flex;
+    gap: var(--spacing-md);
+  }
+  
+  .hero-images {
+    flex: 1;
+    position: relative;
+  }
+  
+  .image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: var(--spacing-md);
+    width: 100%;
+    aspect-ratio: 1;
+  }
+  
+  .image-item {
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .image-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .hero-shape {
+    position: absolute;
+    bottom: -100px;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background-color: var(--light-gray);
+    transform: skewY(-3deg);
+    z-index: -1;
+  }
+  
+  @media (max-width: 992px) {
+    .hero-content {
+      flex-direction: column;
+    }
+    
+    .hero-text {
+      max-width: 100%;
+      text-align: center;
+    }
+    
+    .hero-actions {
+      justify-content: center;
+    }
+    
+    .hero-title {
+      font-size: 2.5rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .hero {
+      padding-top: calc(var(--header-height) + var(--spacing-xl));
+    }
+    
+    .image-grid {
+      aspect-ratio: auto;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(2, 200px);
+    }
+    
+    .image-item.image-3,
+    .image-item.image-4 {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    // Hero animations
+    const heroTl = gsap.timeline();
+    
+    heroTl.from(".hero-title", {
+      opacity: 0,
+      y: 50,
+      duration: 0.8,
+      ease: "power3.out"
+    })
+    .from(".hero-subtitle", {
+      opacity: 0,
+      y: 30,
+      duration: 0.8,
+      ease: "power3.out"
+    }, "-=0.4")
+    .from(".hero-actions", {
+      opacity: 0,
+      y: 30,
+      duration: 0.8,
+      ease: "power3.out"
+    }, "-=0.6")
+    .from(".image-item", {
+      opacity: 0,
+      y: 50,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: "power3.out"
+    }, "-=0.8");
+  });
+</script>

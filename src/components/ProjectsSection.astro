@@ -1,0 +1,192 @@
+---
+// Projects Section Component
+---
+
+<section id="projects" class="section projects-section">
+  <div class="container">
+    <h2 class="section-title">Recent Projects</h2>
+    
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-image">
+          <img src="https://source.unsplash.com/random/600x400?website" alt="Website Project" />
+        </div>
+        <div class="project-content">
+          <div class="project-category">Web Design</div>
+          <h3 class="project-title">Modern E-commerce Platform</h3>
+        </div>
+      </div>
+      
+      <div class="project-card">
+        <div class="project-image">
+          <img src="https://source.unsplash.com/random/600x400?mobile" alt="Mobile App Project" />
+        </div>
+        <div class="project-content">
+          <div class="project-category">Mobile App</div>
+          <h3 class="project-title">Fitness Tracking Application</h3>
+        </div>
+      </div>
+      
+      <div class="project-card">
+        <div class="project-image">
+          <img src="https://source.unsplash.com/random/600x400?branding" alt="Branding Project" />
+        </div>
+        <div class="project-content">
+          <div class="project-category">Branding</div>
+          <h3 class="project-title">Corporate Identity Redesign</h3>
+        </div>
+      </div>
+    </div>
+    
+    <div class="projects-navigation">
+      <div class="nav-dots">
+        <button class="nav-dot active" aria-label="Page 1"></button>
+        <button class="nav-dot" aria-label="Page 2"></button>
+        <button class="nav-dot" aria-label="Page 3"></button>
+      </div>
+      
+      <a href="#" class="btn btn-primary">View All Projects</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects-section {
+    background-color: var(--light-gray);
+  }
+  
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
+  }
+  
+  .project-card {
+    background-color: var(--white);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+  }
+  
+  .project-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .project-image {
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+  }
+  
+  .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .project-card:hover .project-image img {
+    transform: scale(1.05);
+  }
+  
+  .project-content {
+    padding: var(--spacing-lg);
+  }
+  
+  .project-category {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background-color: var(--light-gray);
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--dark-gray);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .project-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--black);
+  }
+  
+  .projects-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .nav-dots {
+    display: flex;
+    gap: var(--spacing-sm);
+  }
+  
+  .nav-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--medium-gray);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-dot.active {
+    background-color: var(--primary);
+  }
+  
+  @media (max-width: 992px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .projects-navigation {
+      flex-direction: column;
+      gap: var(--spacing-lg);
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    // Projects animations
+    gsap.from(".project-card", {
+      opacity: 0,
+      y: 50,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".projects-section",
+        start: "top 70%",
+      }
+    });
+    
+    // Navigation dots functionality
+    const navDots = document.querySelectorAll('.nav-dot');
+    
+    navDots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        // Remove active class from all dots
+        navDots.forEach(d => d.classList.remove('active'));
+        
+        // Add active class to clicked dot
+        dot.classList.add('active');
+        
+        // Here you would implement the actual pagination logic
+        console.log(`Navigating to page ${index + 1}`);
+      });
+    });
+  });
+</script>

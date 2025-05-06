@@ -1,0 +1,71 @@
+---
+import LandingLayout from '../layouts/LandingLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import ServicesSection from '../components/ServicesSection.astro';
+import ServiceFeature from '../components/ServiceFeature.astro';
+import StatsSection from '../components/StatsSection.astro';
+import ProjectsSection from '../components/ProjectsSection.astro';
+import BlogSection from '../components/BlogSection.astro';
+import CtaSection from '../components/CtaSection.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<LandingLayout title="Dynamite Digital - Flexible Solutions For Modern Business">
+  <Header />
+  
+  <main>
+    <Hero />
+    
+    <ServicesSection
+      id="services"
+      title="Our Expert Services to Drive Growth"
+      subtitle="We provide comprehensive digital solutions tailored to your business needs."
+      imageUrl="https://source.unsplash.com/random/600x400?business-meeting"
+      buttonText="Learn More"
+    >
+      <ServiceFeature title="Strategic Consulting">
+        Our team of experts will analyze your business and develop a customized strategy to achieve your goals.
+      </ServiceFeature>
+      
+      <ServiceFeature title="Web Development">
+        We create responsive, user-friendly websites that drive conversions and enhance your online presence.
+      </ServiceFeature>
+      
+      <ServiceFeature title="Digital Marketing">
+        Our data-driven marketing strategies help you reach your target audience and grow your business.
+      </ServiceFeature>
+    </ServicesSection>
+    
+    <StatsSection />
+    
+    <ServicesSection
+      id="expertise"
+      title="Our Expert Services to Drive Growth"
+      subtitle="We combine creativity and technology to deliver exceptional results."
+      imageUrl="https://source.unsplash.com/random/600x400?coding"
+      imagePosition="left"
+      buttonText="Explore Services"
+    >
+      <ServiceFeature title="UI/UX Design">
+        We create intuitive, engaging user experiences that keep your customers coming back.
+      </ServiceFeature>
+      
+      <ServiceFeature title="Mobile App Development">
+        Our team builds native and cross-platform mobile applications that perform flawlessly.
+      </ServiceFeature>
+      
+      <ServiceFeature title="E-commerce Solutions">
+        We develop secure, scalable e-commerce platforms that drive sales and improve customer satisfaction.
+      </ServiceFeature>
+    </ServicesSection>
+    
+    <ProjectsSection />
+    
+    <BlogSection />
+    
+    <CtaSection />
+  </main>
+  
+  <Footer />
+</LandingLayout>
